@@ -9,7 +9,7 @@ test.beforeEach(async ({ page }) => {
 
 test('locator syntax roles', async({page}) => {
    //by tag name
-   await page.locator('input').click();  //playwright find locators only when some action is made
+   //await page.locator('input').click();  //playwright find locators only when some action is made
    //by ID 
    page.locator('#inputEmail1')
    //by class value (partly - any part of class - contains)
@@ -29,3 +29,16 @@ test('locator syntax roles', async({page}) => {
 
 
 }) 
+
+test('user facing locators', async({page}) => {
+    await page.getByRole('textbox', {name: "Email"}).first().click(); // role is a type of element that we trying interact for
+    await page.getByRole('button', {name: "Sign in"}).first().click();
+
+
+    await page.getByLabel('Email').first().click()
+    await page.getByPlaceholder('Jane Doe').click()
+    await page.getByText('Using the Grid').click()
+    await page.getByTitle('IoT Dashboard').click()
+    await page.getByTestId('example-id').click() // <div data-testid="example-id">Content</div> for this kind data-testid attribute is required in HTML
+
+})
