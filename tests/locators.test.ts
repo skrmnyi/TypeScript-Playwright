@@ -42,3 +42,27 @@ test('user facing locators', async({page}) => {
     await page.getByTestId('example-id').click() // <div data-testid="example-id">Content</div> for this kind data-testid attribute is required in HTML
 
 })
+
+test ('location child elements', async({page}) => {
+    await page.locator('nb-card nb-radio >> text=Option 1').click();
+    await page.locator('nb-card nb-radio :text-is("Option 1")').click(); // nb-card parent then nb-radio child and text that should be founded
+    await page.locator('nb-card').locator('nb-radio').locator(':text-is("Option 2")').click(); // the same as previous 
+
+    await page.locator('nb-card').getByRole('button', {name: "Sign in"})
+    await page.locator('nb-card').nth(3).getByRole('button').click()
+});
+
+test ('parent elemtns', async({page}) => {
+    await page.locator('nb-card', {hasText: "Using the Grid"}).getByRole('textbox', {name: "Email"}).click() //nb-card батьківський елемент який серд чайлд елементів має текст Using the Grid
+    await page.locator('nb-card', {hasText: "Basic Form"}).getByRole('textbox', {name: "Email"}).click()
+    
+    await page.locator('nb-card').filter({has:page.locator('#inputEmail1')}).getByRole('textbox', {name: "Email"}).click() //пошук по адішкі чайлда від перента //nb-card  
+    await page.locator('nb-card').filter({hasText: "Basic form"}).getByRole('textbox', {name: "Email"}).click() //.filter спеціальний плейврайт метод, який фільтрує по тексту. 
+
+    await page.locator('nb-card').filter({has: page.locator('nb-checkbox')}).filter({hasText: "Sign in"})
+    .getByRole('textbox', {name: "Email"}).click() // комбінація методів .filter яка допомагає відфільтрувати необхідний локатор, 1 перент, потім, чекбоскс на якому є sign in кнопка
+    //таким чином підбираючи унікальну комбінацію локатора
+    
+    await page.locator(':text-is("Using the Grid")').locator('..').getByRole('textbox', {name: "Email"}).click()
+    //варіант через xpath який виходить на рівеннь верх на перент елмент і вже там шукає необхідне поле Email
+})   
