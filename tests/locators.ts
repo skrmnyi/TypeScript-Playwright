@@ -9,7 +9,7 @@ test.beforeEach(async ({ page }) => {
 
 test('locator syntax roles', async({page}) => {
    //by tag name
-   page.locator('input')
+   await page.locator('input').click();  //playwright find locators only when some action is made
    //by ID 
    page.locator('#inputEmail1')
    //by class value (partly - any part of class - contains)
