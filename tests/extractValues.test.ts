@@ -11,7 +11,7 @@ test('extracting values', async({page}) =>{
     //single text value
     const buttonText = await basicForm.locator('button').textContent();  // .textContent() метод який витягує текст з локатора та записує його в констант змінну
     expect(buttonText).toEqual('Submit')
-    //all test value
+    //all text value
     const radioButton = await page.locator('nb-radio').allTextContents(); // allTextContents() для того щоб витягнути всі дані по локатру
     console.log(radioButton)
     expect(radioButton).toContain('Option 1')
