@@ -16,7 +16,7 @@ test('reusing locators', async({page}) => {
    //для того щоб не дублювати 3 строки кожного разу і не повторювати код, створюємо константою запис basic form 
    //і далі кожного разу не повторюємо це
 
-   const basicForm =  page.locator('nb-card', {hasText: "Basic Form"}); 
+   const basicForm =  page.locator('nb-card').filter({hasText: "Basic Form"}); 
    const emailField =  basicForm.getByRole('textbox', {name: "Email"});  //константа з використанням попередньої константи
 
    await emailField.fill('test@gmail.@com')
