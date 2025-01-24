@@ -34,12 +34,17 @@ test.describe('Form Layouts Page', ()=> {
 
         const radioButton1 =  page.locator('nb-card', {hasText:'Using the Grid'}).getByLabel('Option 1')
         //await radioButton1.check();
-        await radioButton1.check({force:true}); //якщо радіобаттон має задізейблений статус або хайден
-        
+        await radioButton1.check({force:true}); //якщо радіобаттон має задізейблений статус або хайден. метод check клікає по радіобаттону
+        const radioStatus = await radioButton1.isChecked();
+        expect(radioStatus).toBeTruthy(); //tobeFalsy to be Truthy перевірка стейту радіобатона // general assetrion
+
         await page.getByRole('radio', {name:'Option 2'}).check({force:true})
+        await expect(page.getByRole('radio', {name:'Option 2'})).toBeChecked();
+        await expect(page.getByRole('radio', {name:'Option 1'})).not.toBeChecked(); //assertion по локатору  або просто .toBeFalthy(); 
+
+   
 
         
-       
        
     })
 }) 
