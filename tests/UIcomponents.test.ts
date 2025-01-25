@@ -41,10 +41,50 @@ test.describe('Form Layouts Page', ()=> {
         await page.getByRole('radio', {name:'Option 2'}).check({force:true})
         await expect(page.getByRole('radio', {name:'Option 2'})).toBeChecked();
         await expect(page.getByRole('radio', {name:'Option 1'})).not.toBeChecked(); //assertion по локатору  або просто .toBeFalthy(); 
-
-   
-
-        
-       
     })
-}) 
+
+    test ('check-box element', async({page})=>{
+        await page.getByText('Modal & Overlays').click()
+        await page.getByText('Toastr').click()
+        await page.getByRole('checkbox', {name: 'Hide on click'}).uncheck({force:true}); 
+        await page.getByRole('checkbox', {name: 'Prevent arising of duplicate toast'}).check({force:true}); 
+
+        const allBoxes = page.getByRole('checkbox')
+       //цикл на те щоб прожати всі чексбокси і перевірити їх стейт box в даному випадку змінна по якій йде ітератор
+        for(const box of await allBoxes.all()){ //метод all() перетворює локатор в масив, для того щоб 
+            await box.check({force: true}); 
+            expect(await box.isChecked).toBeTruthy();
+            console.log(await allBoxes.all())
+        }
+  })
+  test ('drop-downs', async({page}) => {
+    const dropDownMenu = page.locator('ngx-header nb-select') // батьківський елемент + чайлд
+    await dropDownMenu.click();
+
+    page.getByRole('list') // витягувати значення з ліста в випадках UL тегу
+    page.getByRole('listitem') // витягувати значення з ліста в випадках LI тегу
+
+    const optionListItems = page.getByRole('list').locator('nb-option')
+    await expect(optionListItems).toHaveText(['Light', 'Dark', 'Cosmic', 'Corporate'])
+    await optionListItems.filter({hasText:'Cosmic'}).click(); // фільтрація локатора додаткова
+
+    const headerElement = page.locator('nb-layout-header')
+    await expect(headerElement).toHaveCSS('background-color', 'rgb(50, 50, 89)' ) // перевірка того що хедер має цей колір
+
+    const colors = {
+        'Light': 'rgb(255, 255, 255)', 
+        'Dark': 'rgb(34, 43, 69)',
+        'Cosmic': 'rgb(50, 50, 89)', // Виправлено назву 'Cocmic' на 'Cosmic'
+        'Corporate': 'rgb(255, 255, 255)'
+    }
+
+    await dropDownMenu.click();     
+    for (const color in colors) {
+        await optionListItems.filter({hasText: color}).click(); // витягує з об'єкта ключ значення і підставляє в локатор для кліка
+        await expect(headerElement).toHaveCSS('background-color', colors[color]); // повертає значення по ключу colors[color]
+        if (color != "Corporate") {
+            await dropDownMenu.click();
+        }
+    }
+})
+})
