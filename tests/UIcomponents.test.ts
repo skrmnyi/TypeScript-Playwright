@@ -86,5 +86,38 @@ test.describe('Form Layouts Page', ()=> {
             await dropDownMenu.click();
         }
     }
-})
+    })
+    test ('tooltip element', async({page})=>{
+        await page.getByText('Modal & Overlays').click()
+        await page.getByText('Tooltip').click()
+
+        const tooltipCard = page.locator('nb-card', {hasText: 'Tooltip Placements'})
+        await tooltipCard.getByRole('button', {name: "Top"}).hover();
+        
+
+        //команда на фріз тултіпі command + \ при цьому требв бути в консолі в souces 
+
+        const tooltipText =  await page.locator('nb-tooltip').textContent();
+        expect(tooltipText).toEqual('This is a tooltip')
+        
+    })
+
+    test('modal window or dialog browser box', async({page})=>{
+        await page.getByText('Tables & Data').click()
+        await page.getByText('Smart Table').click()
+
+
+         //так як плейврайт по дефолту закриває браузерні модалки, то цей метод для того щоб коли модалка з таким 
+         //текстом зявиться, то вона не закрилась, а прийнялась 
+
+        page.on('dialog', dialog => {
+            expect(dialog.message()).toEqual('Are you sure you want to delete?')
+            dialog.accept()
+        })
+
+        await page.getByRole('table').locator('tr', {hasText: "mdo@gmail.com"}).locator('.nb-trash').click()
+        //таблиця, потім рядок, який містить якесь унікалне значення, і далі вже по локатору необхідна комірка
+
+        await expect(page.locator('table tr').first()).not.toHaveText('mdo@gmail.com') //tr - table row, перевірка того що перший рядок не містить даної почти - тобто вона видалена
+    })
 })
