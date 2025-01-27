@@ -1,15 +1,11 @@
 import { Page } from "@playwright/test";
+import { HelperBase } from "./helperBase";
 
-export class NavigationPage { //export означає що клас можна експортувати в в інші класи
-
-    readonly page: Page; //readonly означає, що властивість page можна призначити лише один раз, зазвичай у конструкторі, і її значення не можна змінити пізніше.
-    //	page: Page; вказує, що page має тип Page. Тип Page — це частина Playwright, яка представляє відкриту веб-сторінку, і дозволяє виконувати дії, наприклад, кліки, введення тексту, перевірки тощо.
-    //Ця властивість зберігає об’єкт Page, який надається Playwright для роботи зі сторінками.
-
+export class NavigationPage extends HelperBase { //export означає що клас можна експортувати в в інші класи
 
     // конструктор  який виконується під час створення нового об’єкта цього класу
     constructor(page: Page) { // 	constructor(page: Page) — це метод, який приймає параметр page (об’єкт Playwright сторінки).
-        this.page = page; // this.page = page; — тут параметр page зберігається у властивості класу this.page.
+        super(page) // this.page = page; — тут параметр page зберігається у властивості класу this.page.
     }
 
     //Що відбувається під час створення нового об’єкта класу?

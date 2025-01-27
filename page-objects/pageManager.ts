@@ -1,7 +1,7 @@
 import { Page, expect } from "@playwright/test";
-import {NavigationPage} from "../page-objects/navigationPage";
-import {FormLayoutsPage} from "../page-objects/formLayoutsPage";
-import {DatepickerPage} from "../page-objects/datePickerPage";
+import {NavigationPage} from "./navigationPage";
+import {FormLayoutsPage} from "./formLayoutsPage";
+import {DatepickerPage} from "./datePickerPage";
 
 export class PageManager {
   private readonly page: Page;

@@ -18,6 +18,10 @@
     ],
     "plugins": [
       { "name": "tslint-language-service"}
-    ]
+    ], 
+    "baseUrl": "./",
+    "paths": {
+      "@page-objects/*": ["src/page-objects/*"]
+    }
   }
 }

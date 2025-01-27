@@ -1,12 +1,12 @@
 
 import { Page } from "@playwright/test";
+import { HelperBase } from "./helperBase";
 
-export class FormLayoutsPage {
+export class FormLayoutsPage extends HelperBase {
 
-    private readonly page: Page
-
-    constructor(page: Page){
-        this.page = page
+    constructor(page: Page){ //У TypeScript, якщо ви наслідуєте клас і маєте свій власний конструктор, ви повинні викликати конструктор батьківського класу за допомогою super, інакше виникає помилка.
+        super(page)
+        //	•	Метод super викликає конструктор батьківського класу HelperBase і передає йому необхідні аргументи.
     }
 
      //метод який заповнить відразу 3 форми, даними які передамо параметром
@@ -16,6 +16,7 @@ export class FormLayoutsPage {
         await usingTheGridForm.getByRole('textbox', {name: "Password"}).fill(password)
         await usingTheGridForm.getByRole('radio', {name: optionText}).check({force: true})
         await usingTheGridForm.getByRole('button').click()
+        await this.waitForNumberOfSeconds(12)
     }
 
     //заповнить 2 форми, і проставить чекбокс в залежності від тру/фолс
