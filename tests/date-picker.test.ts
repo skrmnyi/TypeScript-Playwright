@@ -30,9 +30,6 @@ test('date-picker2', async ({ page }) => {
     const expectedMonthLong = date.toLocaleString('En-Us', { month: 'long' }) // переобразуває дату в довгий формат 'January'
     const expectedYear = date.getFullYear().toString()
 
-    console.log(expectedYear)
-    console.log(expectedMonthLong)
-   
 
     let calendarMonthAndYear = await page.locator('nb-calendar-view-mode').textContent()
     const dateToassert = `${expectedMonthShort} ${expectedDate}, ${expectedYear}`

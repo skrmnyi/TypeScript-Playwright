@@ -1,24 +1,27 @@
 import { expect, test } from '@playwright/test'
-import { NavigationPage } from '..//page-objects/navigationPage'
-
-let navigateTo: NavigationPage;
+import { PageManager } from '../page-objects/pageManaget';
 
 test.beforeEach(async ({ page }) => {
-    await page.goto('http://localhost:4200/')
-    navigateTo = new NavigationPage(page)
-    
-})
+    await page.goto('http://localhost:4200/');
+});
 
+test('navigate to form page', async ({ page }) => {
+    const pm = new PageManager(page);
+    await pm.navigateTo().formLayoutsPage();
+    await pm.navigateTo().datepickerPage();
+    await pm.navigateTo().smartTablePage();
+    await pm.navigateTo().toastrPage();
+    await pm.navigateTo().tooltipPage();
+});
 
-test ('test with page-object', async({page}) => {
-  
-    await navigateTo.formLayoutsPage(); //замість того щоб прописувати локатор, викликаємо метод який містить вже ці локатори
-})
+test('parametrized methods', async ({ page }) => {
+    const pm = new PageManager(page);
 
-test ('test with page-object 2', async({page}) => {
-    await navigateTo.formLayoutsPage()
-    await navigateTo.datepickerPage();
-    await navigateTo.smartTablePage()
-    await navigateTo.toastrPage()
-    await navigateTo.tooltipPage()
-})
+    await pm.navigateTo().formLayoutsPage();
+    await pm.onFormLayoutsPage().submitUsingTheGridFormWithCredentialsAndSelectOption('test@test.com', 'Welcome1', 'Option 2');
+    await pm.onFormLayoutsPage().submitInlineFormWithNameEmailAndCheckbox( 'John Smith', 'John@test.com', false);
+
+    await pm.navigateTo().datepickerPage();
+    await pm.onDatepickerPage().selectCommonDatePickerDateFromToday(10);
+    await pm.onDatepickerPage().selectDatepickerWithRangeFromToday(6, 10);
+});
