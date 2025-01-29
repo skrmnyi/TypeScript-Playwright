@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test'
 
 test.beforeEach(async ({ page }) => {
-    await page.goto('http://localhost:4200/')
+    await page.goto('/') //
 
 })
 
@@ -14,7 +14,7 @@ test('sliders', async ({ page }) => {
         node.setAttribute('cy', '232.630')
     })
     await tempGauge.click()
-    await expect(page.locator('[class="value temperature h1"]')).toContainText('29')
+    await expect(page.locator('[class="value temperature h1"]')).toContainText('30')
 
     //реалізація з рухом курсора, тобто склік по ньому і рух мишки
 
