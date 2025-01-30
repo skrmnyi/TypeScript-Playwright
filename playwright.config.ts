@@ -31,9 +31,6 @@ reporter: [
       {
         // Upload to Argos on CI only.
         uploadToArgos: !!process.env.CI,
-
-        // Set your Argos token (required if not using GitHub Actions).
-        token: "<argos_964ff641df9a9ae3ec601945fb5509d7a3>",
       }, 
     ],
   ],
