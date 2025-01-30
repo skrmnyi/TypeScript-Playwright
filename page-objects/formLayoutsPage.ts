@@ -16,7 +16,6 @@ export class FormLayoutsPage extends HelperBase {
         await usingTheGridForm.getByRole('textbox', {name: "Password"}).fill(password)
         await usingTheGridForm.getByRole('radio', {name: optionText}).check({force: true})
         await usingTheGridForm.getByRole('button').click()
-        await this.waitForNumberOfSeconds(12)
     }
 
     //заповнить 2 форми, і проставить чекбокс в залежності від тру/фолс
