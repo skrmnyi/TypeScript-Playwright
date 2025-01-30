@@ -23,14 +23,29 @@ reporter: [
   ['json', { outputFile: 'test-results/jsonReport.json' }],
   ['junit', { outputFile: 'test-results/junitReport.xml' }],
   //['allure-playwright'],
-  ['html']
-],
+  ['html'], 
+  process.env.CI ? ["dot"] : ["list"],
+    // Add Argos reporter.
+    [
+      "@argos-ci/playwright/reporter",
+      {
+        // Upload to Argos on CI only.
+        uploadToArgos: !!process.env.CI,
+
+        // Set your Argos token (required if not using GitHub Actions).
+        token: "<argos_964ff641df9a9ae3ec601945fb5509d7a3>",
+      }, 
+    ],
+  ],
+
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
      baseURL: 'http://localhost:4200/',
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+    screenshot: "only-on-failure",
+    
   },
 
   /* Configure projects for major browsers */
