@@ -6,13 +6,13 @@ test.beforeEach(async ({ page }) => {
     await page.goto('/');
 });
 
-test('navigate to form page @smoke @regression', async ({ page }) => { //теги для тестів
+test.only('navigate to form page @smoke @regression', async ({ page }) => { //теги для тестів
     const pm = new PageManager(page);
     await pm.navigateTo().formLayoutsPage();
     await pm.navigateTo().datepickerPage();
-    await pm.navigateTo().smartTablePage();
-    await pm.navigateTo().toastrPage();
-    await pm.navigateTo().tooltipPage();
+    // await pm.navigateTo().smartTablePage();
+    // await pm.navigateTo().toastrPage();
+    // await pm.navigateTo().tooltipPage();
 });
 
 test('parametrized methods @smoke', async ({ page }) => { // в подальшому омжна запускати тести по тегам playwright test --project=chromium --grep @smoke

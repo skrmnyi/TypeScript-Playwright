@@ -23,7 +23,7 @@ reporter: [
   ['json', { outputFile: 'test-results/jsonReport.json' }],
   ['junit', { outputFile: 'test-results/junitReport.xml' }],
   //['allure-playwright'],
-  ['hrml']
+  ['html']
 ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
